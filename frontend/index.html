@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DebateTree — Two Sides, One Verdict</title>
+<link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">§</span>
+    <span class="brand-name">DebateTree</span>
+    <span class="brand-sub" data-i18n="tagline">Two sides, one verdict</span>
+  </div>
+  <div class="top-actions">
+    <button id="langBtn" class="btn btn-ghost" type="button">中文</button>
+    <button id="walletBtn" class="btn btn-brass" type="button" data-i18n="connectWallet">Connect wallet</button>
+  </div>
+</header>
+
+<main>
+  <section class="contract-bar" aria-label="contract">
+    <label class="field-label" data-i18n="contractAddress">Contract address</label>
+    <div class="row">
+      <input id="contractInput" type="text" spellcheck="false" autocomplete="off" />
+      <button id="loadContractBtn" class="btn btn-dark" type="button" data-i18n="loadDebates">Load</button>
+      <a id="explorerLink" class="btn btn-ghost" target="_blank" rel="noreferrer" data-i18n="viewExplorer">Explorer</a>
+    </div>
+    <p class="hint"><span data-i18n="protocol">Protocol</span>: <code id="protocolLabel">debatetree-1</code> · <span data-i18n="network">Stable Studionet 61999</span></p>
+    <p id="walletNote" class="hint" hidden></p>
+  </section>
+
+  <section class="stage" aria-label="proposition">
+    <p class="eyebrow" data-i18n="propositionEyebrow">The proposition on the floor</p>
+    <div class="stage-top">
+      <div>
+        <h1 id="debateTopic">—</h1>
+        <p id="debateDescription" class="lede">—</p>
+        <p class="meta"><span id="debateIdLabel">debate-0</span> · <span data-i18n="creator">Creator</span> <code id="debateCreator">—</code></p>
+      </div>
+      <div class="stage-badges">
+        <span id="debateStatus" class="badge">OPEN</span>
+        <span id="debateWinner" class="badge badge-brass" hidden></span>
+      </div>
+    </div>
+    <div class="meter" role="img" aria-label="score meter">
+      <div class="meter-track">
+        <div id="meterFor" class="meter-for" style="width:50%"></div>
+        <div id="meterAgainst" class="meter-against" style="width:50%"></div>
+        <div class="meter-pin" aria-hidden="true"></div>
+      </div>
+      <div class="meter-labels">
+        <span><strong id="forTotal">0</strong> <span data-i18n="forSide">FOR</span></span>
+        <span id="leadingLabel" class="meter-leading">—</span>
+        <span><strong id="againstTotal">0</strong> <span data-i18n="againstSide">AGAINST</span></span>
+      </div>
+    </div>
+    <div class="stage-actions">
+      <label class="field-label" data-i18n="openDebate">Open debate</label>
+      <div class="row">
+        <input id="debateInput" type="text" value="debate-0" spellcheck="false" autocomplete="off" />
+        <button id="loadDebateBtn" class="btn btn-dark" type="button" data-i18n="openDebateBtn">Open</button>
+        <button id="closeDebateBtn" class="btn btn-danger" type="button" data-i18n="closeDebate">Close debate</button>
+      </div>
+      <p id="closeHint" class="hint"></p>
+    </div>
+  </section>
+
+  <section class="filters" aria-label="filters">
+    <label><span data-i18n="filterSide">Side</span>
+      <select id="sideFilter">
+        <option value="ALL" data-i18n="filterAll">All</option>
+        <option value="FOR" data-i18n="forSide">FOR</option>
+        <option value="AGAINST" data-i18n="againstSide">AGAINST</option>
+      </select>
+    </label>
+    <label><span data-i18n="filterVerdict">Verdict</span>
+      <select id="verdictFilter">
+        <option value="ALL" data-i18n="filterAll">All</option>
+        <option value="PENDING" data-i18n="pending">Pending</option>
+        <option value="SOUND" data-i18n="sound">Sound</option>
+        <option value="UNVERIFIED" data-i18n="unverified">Unverified</option>
+        <option value="FLAWED" data-i18n="flawed">Flawed</option>
+      </select>
+    </label>
+    <button id="reloadBtn" class="btn btn-ghost" type="button" data-i18n="reload">Reload tree</button>
+    <span id="treeProgress" class="hint" hidden></span>
+  </section>
+
+  <p id="statusLine" class="status" hidden></p>
+
+  <section class="tree" aria-label="debate tree">
+    <div class="branch branch-for">
+      <h2><span data-i18n="forBranch">FOR branch</span> <span id="forCount" class="count">0</span></h2>
+      <p class="branch-note" data-i18n="forBranchNote">Arguments that support the proposition.</p>
+      <div id="forNodes" class="nodes"></div>
+    </div>
+    <div class="branch branch-against">
+      <h2><span data-i18n="againstBranch">AGAINST branch</span> <span id="againstCount" class="count">0</span></h2>
+      <p class="branch-note" data-i18n="againstBranchNote">Arguments that oppose the proposition.</p>
+      <div id="againstNodes" class="nodes"></div>
+    </div>
+  </section>
+
+  <section id="detailPanel" class="detail" hidden aria-label="argument detail">
+    <div class="detail-head">
+      <h2 id="detailClaim">—</h2>
+      <button id="detailCloseBtn" class="btn btn-ghost" type="button" data-i18n="closeDetail">Close</button>
+    </div>
+    <dl>
+      <div><dt data-i18n="side">Side</dt><dd id="detailSide">—</dd></div>
+      <div><dt data-i18n="author">Author</dt><dd><code id="detailAuthor">—</code></dd></div>
+      <div><dt data-i18n="status">Status</dt><dd id="detailStatus">—</dd></div>
+      <div><dt data-i18n="verdict">Verdict</dt><dd id="detailVerdict">—</dd></div>
+      <div><dt data-i18n="weight">Weight</dt><dd id="detailWeight">—</dd></div>
+      <div><dt data-i18n="evidence">Evidence</dt><dd><a id="detailEvidence" target="_blank" rel="noreferrer">—</a></dd></div>
+      <div><dt data-i18n="note">Note</dt><dd id="detailNote">—</dd></div>
+      <div><dt data-i18n="quote">Quote</dt><dd id="detailQuote">—</dd></div>
+      <div><dt data-i18n="reason">Reason</dt><dd id="detailReason">—</dd></div>
+    </dl>
+    <button id="assessBtn" class="btn btn-dark" type="button" data-i18n="assessArgument">Assess this argument</button>
+    <p id="assessHint" class="hint"></p>
+  </section>
+
+  <section class="workbench" aria-label="workbench">
+    <form id="createForm" class="panel">
+      <h2 data-i18n="createDebate">Open a new debate</h2>
+      <label><span data-i18n="topic">Topic</span><input id="topicInput" type="text" maxlength="120" required /></label>
+      <label><span data-i18n="description">Description</span><textarea id="descInput" rows="3" maxlength="1000" required></textarea></label>
+      <button class="btn btn-dark" type="submit" data-i18n="createDebateBtn">Create debate</button>
+      <p class="hint" data-i18n="createHint">Anyone may open a debate. You become its creator and the only one who may close it.</p>
+    </form>
+    <form id="postForm" class="panel">
+      <h2 data-i18n="postArgument">Add an argument</h2>
+      <label><span data-i18n="side">Side</span>
+        <select id="argSide">
+          <option value="FOR" data-i18n="forSide">FOR</option>
+          <option value="AGAINST" data-i18n="againstSide">AGAINST</option>
+        </select>
+      </label>
+      <label><span data-i18n="claim">Claim</span><textarea id="claimInput" rows="3" maxlength="500" required></textarea></label>
+      <label><span data-i18n="evidenceUrl">Evidence URL</span><input id="evidenceInput" type="url" maxlength="500" required /></label>
+      <label><span data-i18n="note">Note</span><input id="noteInput" type="text" maxlength="500" /></label>
+      <button class="btn btn-dark" type="submit" data-i18n="postArgumentBtn">Post argument</button>
+      <p class="hint" data-i18n="postHint">Flawed arguments subtract 1 from their own side. Post only claims your evidence actually supports.</p>
+    </form>
+  </section>
+
+  <section class="meta-panels">
+    <div class="panel">
+      <h2 data-i18n="howItWorks">How it works</h2>
+      <ol>
+        <li data-i18n="how1">Open a debate with a topic and description.</li>
+        <li data-i18n="how2">Post arguments FOR or AGAINST, each with an evidence link.</li>
+        <li data-i18n="how3">Validators fetch the evidence and judge soundness: SOUND +2, UNVERIFIED 0, FLAWED −1.</li>
+        <li data-i18n="how4">The creator closes the debate once at least 2 arguments are assessed; the higher total wins.</li>
+      </ol>
+    </div>
+    <div class="panel">
+      <h2 data-i18n="limits">Limits</h2>
+      <ul>
+        <li data-i18n="limit1">A verdict records the evidence judgment at assessment time; a later change to the page does not rewrite history.</li>
+        <li data-i18n="limit2">Unreachable evidence leaves an argument pending; it can be assessed again later.</li>
+        <li data-i18n="limit3">Closing clears nothing: assessed arguments, totals, and the winner stay on chain.</li>
+        <li data-i18n="limit4">All writes use nominal Studionet accounting units; no real assets are held or transferred.</li>
+      </ul>
+      <p class="hint"><span data-i18n="totals">Totals</span>: <span id="countsLabel">—</span></p>
+    </div>
+  </section>
+
+  <footer>
+    <p><a id="repoLink" target="_blank" rel="noreferrer">GitHub</a> · <a id="footerExplorer" target="_blank" rel="noreferrer" data-i18n="viewExplorer">Explorer</a></p>
+    <p class="hint" data-i18n="footerNote">DebateTree runs on GenLayer Stable Studionet. Transactions transfer zero value.</p>
+  </footer>
+</main>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

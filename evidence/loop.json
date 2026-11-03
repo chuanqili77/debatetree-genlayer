@@ -1,0 +1,393 @@
+{
+  "contractAddress": "0x1cEC1De81f9466C366d3d7782d2eF0c453B43925",
+  "accounts": {
+    "creator": "0x9C13B6Db9aaee43C4562480824A91F7BF56692E2",
+    "alice": "0xB0970E8b90613355e255A9915f6421Ced6439f89",
+    "bob": "0xeD33F86B71a2B57A99Aa07a4E571fB7fA7Ceab26",
+    "carol": "0x8A1ae6a9301C51aaC6f6a0567BacEEb975cDD596"
+  },
+  "steps": [
+    {
+      "label": "create-debate-0",
+      "hash": "0xd6fa78c624652f21098fc012a1bdf2770ea4d30ee31ebe62ecb9a38bc82c2622",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 48241
+    },
+    {
+      "label": "post-arg-0-FOR-SOUND",
+      "hash": "0x8f634c6d4377957ec74d502e077f3ab53c0d210eb8ace4af8cd3a3b569749867",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47308
+    },
+    {
+      "label": "post-arg-1-FOR-UNVERIFIED",
+      "hash": "0x224614a0a9d4d17752a6a47bfeb29c6247c89a76ba76f7d334a3aafd372d79f5",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47575
+    },
+    {
+      "label": "post-arg-2-AGAINST-FLAWED",
+      "hash": "0xfd60ce2b5898d05dcf018c20beec709de1a9b61312b6a3914746b938f383e233",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 48596
+    },
+    {
+      "label": "post-arg-3-AGAINST-SOUND",
+      "hash": "0x295a3b58eb3fa52331955acda787f3c8f5cda4ef2093a48716211eec84eeb06e",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 48555
+    },
+    {
+      "label": "post-arg-4-FOR-UNREACHABLE",
+      "hash": "0x0f107848fdc83e18f0d88d498029acab18d92b0977722107fb13681b7f5100bf",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47172
+    },
+    {
+      "label": "assess-arg-0",
+      "hash": "0x2b2d9c16ceb149620d3dc69e7d896d658ab0b3f5d1299e063be88ddf63d687e2",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SOUND",
+      "ms": 62563
+    },
+    {
+      "label": "assess-arg-1",
+      "hash": "0x6fd523ef304922fa2b63973c130d716dc3e3b68088b5ff714d28760fdcca531d",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "UNVERIFIED",
+      "ms": 78287
+    },
+    {
+      "label": "assess-arg-2",
+      "hash": "0x8808ed10a79117e23aa4a4c33acba1c58aa34adbc41c472f231b9b42113698c9",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "FLAWED",
+      "ms": 63306
+    },
+    {
+      "label": "assess-arg-3",
+      "hash": "0x5b0ecba9f583d71fccc1d80b94d82023eb57cdfbae8079ee709cc04b4e127c1f",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SOUND",
+      "ms": 78299
+    },
+    {
+      "label": "assess-arg-4-unreachable",
+      "hash": "0x27367842e4193785b1c26eda8d82ba52c6e646df97286bdd37d40ed90520d768",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "EVIDENCE_UNREACHABLE",
+      "expect": "ERROR",
+      "ms": 62987
+    },
+    {
+      "label": "create-debate-1",
+      "hash": "0xa406752abdf1e3a97ed3dac24895f6b797b1f85c68e0f639bb4b56c0df6b2da4",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 46965
+    },
+    {
+      "label": "post-arg-5-debate-1",
+      "hash": "0x0eb3b422e65c21260fca4c938003664e6ae46903a7c6558400a5b629e85b02f9",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 46908
+    },
+    {
+      "label": "assess-arg-5",
+      "hash": "0x48454d95cbc034c77889360ee181b020d974b4becd54b519360ac1a07de09939",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SOUND",
+      "ms": 62500
+    },
+    {
+      "label": "close-debate-1-too-early",
+      "hash": "0x958721ed81599741b6e169a10c38b1d6aaa7cb6409dffe65ff2a4130d3947d7b",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "INVALID_STATUS",
+      "expect": "ERROR INVALID_STATUS",
+      "ms": 47218
+    },
+    {
+      "label": "close-debate-0",
+      "hash": "0x3ecab7a3ce1be4b7224bee0bf18d01a4a023a0ae1d71a5b6c9386c38e0e00868",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "CLOSED winner FOR",
+      "ms": 47220
+    },
+    {
+      "label": "assess-closed-debate-pending-arg",
+      "hash": "0x4e6e1466a7f8fdeb21f569c0095937c944b70f74e3e5fe1d27c702e171bd1964",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "ALREADY_CLOSED",
+      "expect": "ERROR ALREADY_CLOSED",
+      "ms": 47139
+    },
+    {
+      "label": "post-to-closed-debate",
+      "hash": "0x5deb3abffa800a730484344cf4c9ec3d1013ccb1fa73a0cd0c9e2bfc426616c1",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "ALREADY_CLOSED",
+      "expect": "ERROR ALREADY_CLOSED",
+      "ms": 47507
+    },
+    {
+      "label": "close-debate-0-again",
+      "hash": "0x47d79819bc49e98d82a39c5e59edb6bbe2c63e975e83e5c588c7cf0675d45376",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "ALREADY_CLOSED",
+      "expect": "ERROR ALREADY_CLOSED",
+      "ms": 47974
+    },
+    {
+      "label": "close-debate-1-by-nonauthor",
+      "hash": "0x206920e73c18edc744eb22330a5a8f1d9db7fb2eb667d7592bae34247ebd5814",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "UNAUTHORIZED",
+      "expect": "ERROR UNAUTHORIZED",
+      "ms": 47330
+    },
+    {
+      "label": "post-bad-side",
+      "hash": "0xbaf4319d6dc120a3d66ed307faabd98db0f8c30c81012f3a86fa5a6e0190468f",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "INVALID_SIDE",
+      "expect": "ERROR INVALID_SIDE",
+      "ms": 47954
+    },
+    {
+      "label": "create-debate-2",
+      "hash": "0xe700525a913986028093fb52e021688f677d299491d0b17d2b9f096ee1ccf1f9",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 48028
+    },
+    {
+      "label": "create-debate-3",
+      "hash": "0xd1a5fd7e2cecba725608c95149115d040bf66c835246f2b6004ae2b7e1177702",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47184
+    },
+    {
+      "label": "create-debate-4",
+      "hash": "0xf7dc9546f3a60eeb3822c6a61e7878eed401070eaa23e0d688c86d1190c574b4",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 46986
+    },
+    {
+      "label": "create-debate-5",
+      "hash": "0x01962f07daa46c567a4a8e1521d70b31c45351aa9760369e4630ce8cae470d96",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47163
+    },
+    {
+      "label": "create-debate-6",
+      "hash": "0xa6b9abf76983496261775a25b98aa8416ed8578ed8f22b2c2957b3bacdd98eaf",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47713
+    },
+    {
+      "label": "create-debate-7",
+      "hash": "0xf9399ae1bbf24e956b76c7b1735f0d58b925bab1a3b3909e80604d23bbe61928",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "errorCode": "",
+      "expect": "SUCCESS",
+      "ms": 47577
+    },
+    {
+      "label": "create-debate-9-cap",
+      "hash": "0x45323e160050174ccd8da7ad7ba73d3b60e68fb82880f2ff436e0fad1e159104",
+      "status": "FINALIZED",
+      "execution": "ERROR",
+      "errorCode": "DEBATE_CAP",
+      "expect": "ERROR DEBATE_CAP",
+      "ms": 47418
+    }
+  ],
+  "final": {
+    "debate0": {
+      "against_total": -1,
+      "argument_count": 5,
+      "argument_ids": [
+        "arg-0",
+        "arg-1",
+        "arg-2",
+        "arg-3",
+        "arg-4"
+      ],
+      "assessed_count": 4,
+      "creator": "0x9c13b6db9aaee43c4562480824a91f7bf56692e2",
+      "description": "A debate about whether reserved example domains are suitable for use in technical documentation and literature.",
+      "for_total": 1,
+      "id": "debate-0",
+      "protocol": "debatetree-1",
+      "status": "CLOSED",
+      "topic": "Should example domains be used in documentation?",
+      "winner": "FOR"
+    },
+    "debate1": {
+      "against_total": 0,
+      "argument_count": 1,
+      "argument_ids": [
+        "arg-5"
+      ],
+      "assessed_count": 1,
+      "creator": "0x9c13b6db9aaee43c4562480824a91f7bf56692e2",
+      "description": "A second debate used to prove the close guard.",
+      "for_total": 2,
+      "id": "debate-1",
+      "protocol": "debatetree-1",
+      "status": "OPEN",
+      "topic": "Second debate topic here",
+      "winner": ""
+    },
+    "counts": {
+      "argument_count": 6,
+      "assessed_count": 5,
+      "closed_count": 1,
+      "debate_count": 8
+    },
+    "args": {
+      "arg-0": {
+        "author": "0xb0970e8b90613355e255a9915f6421ced6439f89",
+        "claim": "Example Domain is reserved for illustrative examples in documents.",
+        "debate_id": "debate-0",
+        "evidence_url": "https://example.com/",
+        "id": "arg-0",
+        "note": "",
+        "quote": "This domain is for use in documentation examples without needing permission.",
+        "reason": "The evidence explicitly states that the domain is intended for documentation examples, directly confirming that Example Domain is reserved for illustrative purposes.",
+        "side": "FOR",
+        "status": "ASSESSED",
+        "verdict": "SOUND",
+        "weight": 2
+      },
+      "arg-1": {
+        "author": "0xed33f86b71a2b57a99aa07a4e571fb7fa7ceab26",
+        "claim": "Example Domain proves quantum supremacy was achieved in 2024.",
+        "debate_id": "debate-0",
+        "evidence_url": "https://example.com/",
+        "id": "arg-1",
+        "note": "",
+        "quote": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.",
+        "reason": "The evidence page is a standard placeholder for example.com and contains no mention of quantum computing, quantum supremacy, or the year 2024.",
+        "side": "FOR",
+        "status": "ASSESSED",
+        "verdict": "FLAWED",
+        "weight": -1
+      },
+      "arg-2": {
+        "author": "0x8a1ae6a9301c51aac6f6a0567baceeb975cdd596",
+        "claim": "Example Domain's page says you must ask for permission before using the domain.",
+        "debate_id": "debate-0",
+        "evidence_url": "https://example.com/",
+        "id": "arg-2",
+        "note": "",
+        "quote": "This domain is for use in documentation examples without needing permission.",
+        "reason": "The evidence page explicitly states the opposite of the claim: permission is not needed, not that you must ask for it.",
+        "side": "AGAINST",
+        "status": "ASSESSED",
+        "verdict": "FLAWED",
+        "weight": -1
+      },
+      "arg-3": {
+        "author": "0xb0970e8b90613355e255a9915f6421ced6439f89",
+        "claim": "Example Domain may be used in literature without asking for permission.",
+        "debate_id": "debate-0",
+        "evidence_url": "https://example.com/",
+        "id": "arg-3",
+        "note": "",
+        "quote": "",
+        "reason": "No usable page text received for the provided evidence page URL; unable to fetch or validate any content.",
+        "side": "AGAINST",
+        "status": "ASSESSED",
+        "verdict": "UNVERIFIED",
+        "weight": 0
+      },
+      "arg-4": {
+        "author": "0xed33f86b71a2b57a99aa07a4e571fb7fa7ceab26",
+        "claim": "Example Domain's missing page supports this claim.",
+        "debate_id": "debate-0",
+        "evidence_url": "https://example.com/this-page-does-not-exist-xyz",
+        "id": "arg-4",
+        "note": "",
+        "quote": "",
+        "reason": "",
+        "side": "FOR",
+        "status": "PENDING",
+        "verdict": "",
+        "weight": 0
+      },
+      "arg-5": {
+        "author": "0xb0970e8b90613355e255a9915f6421ced6439f89",
+        "claim": "Example Domain is reserved for illustrative examples in documents.",
+        "debate_id": "debate-1",
+        "evidence_url": "https://example.com/",
+        "id": "arg-5",
+        "note": "",
+        "quote": "This domain is for use in documentation examples without needing permission.",
+        "reason": "The evidence text explicitly states that the domain is for use in documentation examples, which directly supports the claim that Example Domain is reserved for illustrative examples in documents.",
+        "side": "FOR",
+        "status": "ASSESSED",
+        "verdict": "SOUND",
+        "weight": 2
+      }
+    }
+  }
+}
