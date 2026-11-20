@@ -4,8 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DebateTree — Two Sides, One Verdict</title>
-  <script type="module" crossorigin src="./assets/index-B0FyynlM.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-Dm-UaMFZ.css">
+  <script type="module" crossorigin src="./assets/index-DhBNczJp.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DxCPIZ8a.css">
 </head>
 <body>
 <header class="topbar">
@@ -21,6 +21,13 @@
 </header>
 
 <main>
+  <nav class="appeal-demo" aria-label="Appeal demonstration">
+    <strong>Appeal review demo</strong>
+    <button class="btn" data-appeal-demo="0">Reversed +3</button>
+    <button class="btn" data-appeal-demo="1">Upheld +0</button>
+    <button class="btn" data-appeal-demo="2">Withdrawn +0</button>
+    <a href="./?legacy=1">V1 archive ↗</a>
+  </nav>
   <section class="contract-bar" aria-label="contract">
     <label class="field-label" data-i18n="contractAddress">Contract address</label>
     <div class="row">
@@ -122,6 +129,23 @@
     </dl>
     <button id="assessBtn" class="btn btn-dark" type="button" data-i18n="assessArgument">Assess this argument</button>
     <p id="assessHint" class="hint"></p>
+    <section id="appealPanel" class="appeal-panel" hidden>
+      <h3 id="appealHeading">Appeal review</h3>
+      <p id="appealStatus" aria-live="polite"></p>
+      <p id="appealOriginal"></p><p id="appealPriorReason"></p>
+      <a id="appealSource" target="_blank" rel="noopener noreferrer" hidden>Counterevidence ↗</a>
+      <p id="appealGrounds"></p>
+      <blockquote id="appealQuote"></blockquote>
+      <p id="appealReason"></p>
+      <a id="appealReceipt" target="_blank" rel="noopener noreferrer" hidden>Finalized appeal transaction ↗</a>
+      <form id="appealForm" hidden>
+        <label>Counterevidence URL<input id="appealUrl" type="url" required maxlength="500"></label>
+        <label>Grounds<textarea id="appealGroundsInput" required minlength="10" maxlength="500" rows="3"></textarea></label>
+        <button class="btn btn-dark" type="submit">File appeal</button>
+      </form>
+      <button id="resolveAppealBtn" class="btn btn-dark" type="button" hidden>Resolve with validators</button>
+      <button id="endAppealBtn" class="btn" type="button" hidden>Withdraw or expire</button>
+    </section>
   </section>
 
   <section class="workbench" aria-label="workbench">
