@@ -73,14 +73,14 @@ function renderWalletState() {
   renderDetail();
 }
 
-async function readRetry(fn, argsList, attempts = 5) {
+async function readRetry(fn, argsList, attempts = 5, address = contractAddress) {
   let lastErr = null;
   for (let a = 0; a < attempts; a++) {
     try {
-      return await readClient.readContract({ address: contractAddress, functionName: fn, args: argsList, transactionHashVariant: "latest-final" });
+      return await readClient.readContract({ address, functionName: fn, args: argsList, transactionHashVariant: "latest-final" });
     } catch (e) {
       lastErr = e;
-      if (a < attempts - 1) await sleep(isRateLimit(e) ? 65000 : 5000);
+      if (a < attempts - 1) await sleep(isRateLimit(e) ? 8000 * (a + 1) : 1500 * (a + 1));
       else throw e;
     }
   }
@@ -104,11 +104,6 @@ function renderStage() {
   }
   $("forTotal").textContent = debate.for_total;
   $("againstTotal").textContent = debate.against_total;
-  const forPos = Math.max(0, debate.for_total);
-  const againstPos = Math.max(0, debate.against_total);
-  const total = forPos + againstPos;
-  $("meterFor").style.width = total > 0 ? `${(forPos / total) * 100}%` : "50%";
-  $("meterAgainst").style.width = total > 0 ? `${(againstPos / total) * 100}%` : "50%";
   $("leadingLabel").textContent = debate.for_total > debate.against_total ? t("leadingFor")
     : debate.against_total > debate.for_total ? t("leadingAgainst") : t("leadingTie");
   const closeBtn = $("closeDebateBtn");
@@ -214,6 +209,13 @@ function showAppeal(a) {
 function renderDetail() {
   const panel = $("detailPanel");
   const a = args.find((x) => x.id === selectedId);
+  document.querySelectorAll("[data-appeal-demo]").forEach(button => {
+    const row = demo.arguments[Number(button.dataset.appealDemo)];
+    button.setAttribute("aria-pressed", String(
+      contractAddress.toLowerCase() === deployment.contractAddress.toLowerCase() &&
+      debate?.id === demo.debateId && Boolean(a) && row?.id === selectedId,
+    ));
+  });
   if (!a) { panel.hidden = true; return; }
   panel.hidden = false;
   $("detailClaim").textContent = a.claim;
@@ -249,69 +251,47 @@ function renderDetail() {
 async function loadDebate() {
   const gen = ++loadGen;
   const keepId = selectedId;
+  const address = contractAddress;
+  const id = debateId;
+  const tree = document.querySelector(".tree");
+  debate = null;
   args = [];
   selectedId = null;
+  renderDetail();
+  tree.hidden = true;
+  $("closeDebateBtn").disabled = true;
   setStatus(t("loadingTree"));
-  $("treeProgress").hidden = false;
   try {
-    const rawDebate = await readRetry("get_debate", [debateId]);
-    if (gen === loadGen) $("protocolLabel").textContent = parse(rawDebate)?.protocol ?? "—";
+    const raw = await readRetry("get_debate", [id], 3, address);
     if (gen !== loadGen) return;
-    debate = parse(rawDebate);
+    debate = parse(raw);
+    $("protocolLabel").textContent = debate?.protocol ?? "—";
     if (!debate) {
       setStatus(t("errDebateNotFound"), true);
-      $("treeProgress").hidden = true;
       return;
     }
-    counts = parse(await readRetry("get_counts", []));
-    if (gen !== loadGen) return;
     renderStage();
-    renderTree();
-    renderDetail();
     const ids = debate.argument_ids || [];
-    const burst = ids.slice(0, 10);
-    for (const id of burst) {
+    const countRequest = readRetry("get_counts", [], 2, address).then(raw => {
+      if (gen === loadGen) { counts = parse(raw); renderStage(); }
+    }).catch(() => {});
+    for (let i = 0; i < ids.length; i += 4) {
       if (gen !== loadGen) return;
-      try {
-        const raw = await readRetry("get_argument", [id]);
-        const a = parse(raw);
-        if (a) args.push(a);
-      } catch (e) { console.error(e); }
+      const batch = await Promise.allSettled(ids.slice(i, i + 4).map(
+        argId => readRetry("get_argument", [argId], 3, address).then(parse),
+      ));
+      if (gen !== loadGen) return;
+      args.push(...batch.flatMap(item => item.status === "fulfilled" && item.value ? [item.value] : []));
+      setStatus(t("loadingTree") + " " + args.length + "/" + ids.length);
     }
-    if (gen !== loadGen) return;
+    tree.hidden = false;
+    selectedId = keepId && args.some(a => a.id === keepId) ? keepId : null;
     renderTree();
     renderDetail();
-    let failed = false;
-    for (let i = 10; i < ids.length; i++) {
-      if (gen !== loadGen) return;
-      $("treeProgress").textContent = `${t("loadingTree")} ${args.length}/${ids.length}`;
-      await sleep(2200);
-      if (gen !== loadGen) return;
-      try {
-        const raw = await readRetry("get_argument", [ids[i]]);
-        const a = parse(raw);
-        if (a) args.push(a);
-      } catch (e) {
-        console.error(e);
-        failed = true;
-        break;
-      }
-      if ((i - 10 + 1) % 10 === 0) { renderTree(); renderDetail(); }
-    }
-    renderTree();
-    renderDetail();
-    $("treeProgress").hidden = true;
-    if (keepId && args.some((a) => a.id === keepId)) {
-      selectedId = keepId;
-      renderTree();
-      renderDetail();
-    }
-    setStatus(failed ? t("treePartial") : t("treeLoaded"), failed);
-  } catch (e) {
-    console.error(e);
-    if (gen !== loadGen) return;
-    $("treeProgress").hidden = true;
-    setStatus(t("errLoad"), true);
+    setStatus(args.length < ids.length ? t("treePartial") : "", args.length < ids.length);
+    await countRequest;
+  } catch (error) {
+    if (gen === loadGen) setStatus(t("errLoad"), true);
   }
 }
 
@@ -383,6 +363,8 @@ function initEvents() {
     renderWalletState();
   });
   document.querySelectorAll("[data-appeal-demo]").forEach(button => button.addEventListener("click", async () => {
+    const alreadyLoaded = contractAddress.toLowerCase() === deployment.contractAddress.toLowerCase()
+      && debate?.id === demo.debateId && args.some(row => row.id === demo.arguments[Number(button.dataset.appealDemo)].id);
     contractAddress = deployment.contractAddress;
     debateId = demo.debateId;
     selectedId = demo.arguments[Number(button.dataset.appealDemo)].id;
@@ -390,8 +372,9 @@ function initEvents() {
     $("debateInput").value = debateId;
     $("explorerLink").href = explorerUrl();
     $("footerExplorer").href = explorerUrl();
-    await loadDebate();
-    $("detailPanel").scrollIntoView({block:"nearest"});
+    if (alreadyLoaded) { renderTree(); renderDetail(); }
+    else await loadDebate();
+    if (!$("detailPanel").hidden) $("detailPanel").scrollIntoView({block:"nearest"});
   }));
   $("appealForm").addEventListener("submit", e => {
     e.preventDefault();

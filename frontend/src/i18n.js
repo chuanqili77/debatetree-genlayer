@@ -1,5 +1,12 @@
 export const STRINGS = {
   en: {
+    contractSettings: "Contract settings",
+    demoHeading: "Appeal review",
+    demoReversed: "Reversed",
+    demoUpheld: "Upheld",
+    demoWithdrawn: "Withdrawn",
+    demoArchive: "V1 archive ↗",
+
     tagline: "Two sides, one verdict",
     connectWallet: "Connect wallet",
     disconnectWallet: "Disconnect",
@@ -89,6 +96,13 @@ export const STRINGS = {
     statusClosed: "CLOSED",
   },
   zh: {
+    contractSettings: "合约设置",
+    demoHeading: "申诉复核",
+    demoReversed: "改判",
+    demoUpheld: "维持原判",
+    demoWithdrawn: "撤回",
+    demoArchive: "V1 历史版 ↗",
+
     tagline: "两方陈词，一纸裁决",
     connectWallet: "连接钱包",
     disconnectWallet: "断开连接",

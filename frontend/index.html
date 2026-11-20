@@ -20,24 +20,6 @@
 </header>
 
 <main>
-  <nav class="appeal-demo" aria-label="Appeal demonstration">
-    <strong>Appeal review demo</strong>
-    <button class="btn" data-appeal-demo="0">Reversed +3</button>
-    <button class="btn" data-appeal-demo="1">Upheld +0</button>
-    <button class="btn" data-appeal-demo="2">Withdrawn +0</button>
-    <a href="./?legacy=1">V1 archive ↗</a>
-  </nav>
-  <section class="contract-bar" aria-label="contract">
-    <label class="field-label" data-i18n="contractAddress">Contract address</label>
-    <div class="row">
-      <input id="contractInput" type="text" spellcheck="false" autocomplete="off" />
-      <button id="loadContractBtn" class="btn btn-dark" type="button" data-i18n="loadDebates">Load</button>
-      <a id="explorerLink" class="btn btn-ghost" target="_blank" rel="noreferrer" data-i18n="viewExplorer">Explorer</a>
-    </div>
-    <p class="hint"><span data-i18n="protocol">Protocol</span>: <code id="protocolLabel">debatetree-2</code> · <span data-i18n="network">Stable Studionet 61999</span></p>
-    <p id="walletNote" class="hint" hidden></p>
-  </section>
-
   <section class="stage" aria-label="proposition">
     <p class="eyebrow" data-i18n="propositionEyebrow">The proposition on the floor</p>
     <div class="stage-top">
@@ -47,24 +29,19 @@
         <p class="meta"><span id="debateIdLabel">debate-0</span> · <span data-i18n="creator">Creator</span> <code id="debateCreator">—</code></p>
       </div>
       <div class="stage-badges">
-        <span id="debateStatus" class="badge">OPEN</span>
+        <span id="debateStatus" class="badge">—</span>
         <span id="debateWinner" class="badge badge-brass" hidden></span>
       </div>
     </div>
-    <div class="meter" role="img" aria-label="score meter">
-      <div class="meter-track">
-        <div id="meterFor" class="meter-for" style="width:50%"></div>
-        <div id="meterAgainst" class="meter-against" style="width:50%"></div>
-        <div class="meter-pin" aria-hidden="true"></div>
-      </div>
+    <div class="meter" aria-label="Debate score">
       <div class="meter-labels">
-        <span><strong id="forTotal">0</strong> <span data-i18n="forSide">FOR</span></span>
+        <span><strong id="forTotal">—</strong> <span data-i18n="forSide">FOR</span></span>
         <span id="leadingLabel" class="meter-leading">—</span>
-        <span><strong id="againstTotal">0</strong> <span data-i18n="againstSide">AGAINST</span></span>
+        <span><strong id="againstTotal">—</strong> <span data-i18n="againstSide">AGAINST</span></span>
       </div>
     </div>
     <div class="stage-actions">
-      <label class="field-label" data-i18n="openDebate">Open debate</label>
+      <label for="debateInput" class="field-label" data-i18n="openDebate">Open debate</label>
       <div class="row">
         <input id="debateInput" type="text" value="debate-0" spellcheck="false" autocomplete="off" />
         <button id="loadDebateBtn" class="btn btn-dark" type="button" data-i18n="openDebateBtn">Open</button>
@@ -74,42 +51,12 @@
     </div>
   </section>
 
-  <section class="filters" aria-label="filters">
-    <label><span data-i18n="filterSide">Side</span>
-      <select id="sideFilter">
-        <option value="ALL" data-i18n="filterAll">All</option>
-        <option value="FOR" data-i18n="forSide">FOR</option>
-        <option value="AGAINST" data-i18n="againstSide">AGAINST</option>
-      </select>
-    </label>
-    <label><span data-i18n="filterVerdict">Verdict</span>
-      <select id="verdictFilter">
-        <option value="ALL" data-i18n="filterAll">All</option>
-        <option value="PENDING" data-i18n="pending">Pending</option>
-        <option value="SOUND" data-i18n="sound">Sound</option>
-        <option value="UNVERIFIED" data-i18n="unverified">Unverified</option>
-        <option value="FLAWED" data-i18n="flawed">Flawed</option>
-      </select>
-    </label>
-    <button id="reloadBtn" class="btn btn-ghost" type="button" data-i18n="reload">Reload tree</button>
-    <span id="treeProgress" class="hint" hidden></span>
-  </section>
-
-  <p id="statusLine" class="status" hidden></p>
-
-  <section class="tree" aria-label="debate tree">
-    <div class="branch branch-for">
-      <h2><span data-i18n="forBranch">FOR branch</span> <span id="forCount" class="count">0</span></h2>
-      <p class="branch-note" data-i18n="forBranchNote">Arguments that support the proposition.</p>
-      <div id="forNodes" class="nodes"></div>
-    </div>
-    <div class="branch branch-against">
-      <h2><span data-i18n="againstBranch">AGAINST branch</span> <span id="againstCount" class="count">0</span></h2>
-      <p class="branch-note" data-i18n="againstBranchNote">Arguments that oppose the proposition.</p>
-      <div id="againstNodes" class="nodes"></div>
-    </div>
-  </section>
-
+  <nav class="appeal-demo" aria-label="Appeal demonstration">
+    <div class="demo-heading"><h2 data-i18n="demoHeading">Appeal review</h2><a href="./?legacy=1" data-i18n="demoArchive">V1 archive ↗</a></div>
+    <button class="btn demo-card" data-appeal-demo="0" aria-pressed="false"><span data-i18n="demoReversed">Reversed</span><strong>+3</strong></button>
+    <button class="btn demo-card" data-appeal-demo="1" aria-pressed="false"><span data-i18n="demoUpheld">Upheld</span><strong>0</strong></button>
+    <button class="btn demo-card" data-appeal-demo="2" aria-pressed="false"><span data-i18n="demoWithdrawn">Withdrawn</span><strong>0</strong></button>
+  </nav>
   <section id="detailPanel" class="detail" hidden aria-label="argument detail">
     <div class="detail-head">
       <h2 id="detailClaim">—</h2>
@@ -145,6 +92,52 @@
       <button id="resolveAppealBtn" class="btn btn-dark" type="button" hidden>Resolve with validators</button>
       <button id="endAppealBtn" class="btn" type="button" hidden>Withdraw or expire</button>
     </section>
+  </section>
+
+  <details class="contract-bar"><summary data-i18n="contractSettings">Contract settings</summary>
+    <label for="contractInput" class="field-label" data-i18n="contractAddress">Contract address</label>
+    <div class="row">
+      <input id="contractInput" type="text" spellcheck="false" autocomplete="off" />
+      <button id="loadContractBtn" class="btn btn-dark" type="button" data-i18n="loadDebates">Load</button>
+      <a id="explorerLink" class="btn btn-ghost" target="_blank" rel="noreferrer" data-i18n="viewExplorer">Explorer</a>
+    </div>
+    <p class="hint"><span data-i18n="protocol">Protocol</span>: <code id="protocolLabel">debatetree-2</code> · <span data-i18n="network">Stable Studionet 61999</span></p>
+    <p id="walletNote" class="hint" hidden></p>
+  </details>
+
+  <section class="filters" aria-label="filters">
+    <label><span data-i18n="filterSide">Side</span>
+      <select id="sideFilter">
+        <option value="ALL" data-i18n="filterAll">All</option>
+        <option value="FOR" data-i18n="forSide">FOR</option>
+        <option value="AGAINST" data-i18n="againstSide">AGAINST</option>
+      </select>
+    </label>
+    <label><span data-i18n="filterVerdict">Verdict</span>
+      <select id="verdictFilter">
+        <option value="ALL" data-i18n="filterAll">All</option>
+        <option value="PENDING" data-i18n="pending">Pending</option>
+        <option value="SOUND" data-i18n="sound">Sound</option>
+        <option value="UNVERIFIED" data-i18n="unverified">Unverified</option>
+        <option value="FLAWED" data-i18n="flawed">Flawed</option>
+      </select>
+    </label>
+    <button id="reloadBtn" class="btn btn-ghost" type="button" data-i18n="reload">Reload tree</button>
+  </section>
+
+  <p id="statusLine" class="status" role="status" hidden></p>
+
+  <section class="tree" aria-label="debate tree">
+    <div class="branch branch-for">
+      <h2><span data-i18n="forBranch">FOR branch</span> <span id="forCount" class="count">0</span></h2>
+      <p class="branch-note" data-i18n="forBranchNote">Arguments that support the proposition.</p>
+      <div id="forNodes" class="nodes"></div>
+    </div>
+    <div class="branch branch-against">
+      <h2><span data-i18n="againstBranch">AGAINST branch</span> <span id="againstCount" class="count">0</span></h2>
+      <p class="branch-note" data-i18n="againstBranchNote">Arguments that oppose the proposition.</p>
+      <div id="againstNodes" class="nodes"></div>
+    </div>
   </section>
 
   <section class="workbench" aria-label="workbench">
