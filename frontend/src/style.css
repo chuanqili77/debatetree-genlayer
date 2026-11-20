@@ -118,3 +118,12 @@ footer a { color: var(--for); }
 @media (prefers-reduced-motion: reduce) {
   .meter-for, .meter-against { transition: none; }
 }
+
+.appeal-demo {display:flex;flex-wrap:wrap;gap:.65rem;align-items:center;padding:.9rem 1rem;border:1px solid #c9c5bc;border-radius:.75rem;margin:1rem 0}
+.appeal-panel {border-top:1px solid #c9c5bc;margin-top:1.1rem;padding-top:1rem;overflow-wrap:anywhere}
+.appeal-panel form:not([hidden]) {display:grid;gap:.75rem;margin:.75rem 0}
+.appeal-panel label {display:grid;gap:.3rem}
+.appeal-panel blockquote:empty {display:none}
+#appealStatus {width:fit-content;max-width:100%;padding:.3rem .55rem;border-radius:.35rem;background:#eee9df;color:#332c21;font-weight:700}
+#appealStatus[data-outcome="REVERSED"] {background:#d9e8d8;color:#163920}
+#appealStatus[data-outcome="UPHELD"] {background:#f1e4cd;color:#55371c}

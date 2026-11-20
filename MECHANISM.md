@@ -1,3 +1,5 @@
+> **V1 archive.** This file documents the accepted historical version. See the [current V2 README](README.md) for the appeal mechanism and current deployment. The historical source is [pinned to the accepted commit](https://github.com/chuanqili77/debatetree-genlayer/blob/6617bc34830ec8dbabef67d80eb22d2c070777a4/contracts/debatetree.py).
+
 # DebateTree mechanism
 
 Protocol: `debatetree-1`. Network: GenLayer Stable Studionet, chain ID 61999.

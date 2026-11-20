@@ -1,0 +1,293 @@
+{
+  "address": "0x75BD17Ae2a210a63b56745Adeff0EddbfA6f725C",
+  "debateId": "debate-0",
+  "baseline": {
+    "against_total": 0,
+    "argument_count": 3,
+    "argument_ids": [
+      "arg-0",
+      "arg-1",
+      "arg-2"
+    ],
+    "assessed_count": 3,
+    "creator": "0x292dfc2c7447763d1b2e9f2869266402f0efc8f6",
+    "description": "Three independent authors demonstrate a correction, an upheld ruling, and withdrawal.",
+    "for_total": -2,
+    "id": "debate-0",
+    "pending_appeals": 0,
+    "protocol": "debatetree-2",
+    "status": "OPEN",
+    "topic": "Library schedule appeals",
+    "winner": ""
+  },
+  "final": {
+    "against_total": 0,
+    "argument_count": 3,
+    "argument_ids": [
+      "arg-0",
+      "arg-1",
+      "arg-2"
+    ],
+    "assessed_count": 3,
+    "creator": "0x292dfc2c7447763d1b2e9f2869266402f0efc8f6",
+    "description": "Three independent authors demonstrate a correction, an upheld ruling, and withdrawal.",
+    "for_total": 1,
+    "id": "debate-0",
+    "pending_appeals": 0,
+    "protocol": "debatetree-2",
+    "status": "CLOSED",
+    "topic": "Library schedule appeals",
+    "winner": "FOR"
+  },
+  "arguments": [
+    {
+      "appeal": {
+        "delta": 3,
+        "evidence_url": "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/correction.txt",
+        "expires_at": 1795247199,
+        "grounds": "The updated schedule explicitly replaces the preliminary opening time.",
+        "quote": "The library opens at 10:00 on Saturdays.",
+        "reason": "The new official schedule correction explicitly replaces the preliminary time and establishes that the library opens at 10:00 on Saturdays, directly correcting the prior deficiency.",
+        "status": "REVERSED",
+        "verdict": "SOUND"
+      },
+      "author": "0xaba63aa6e4d423d6b909c9c5f0d4c11d4e2dc9b5",
+      "claim": "The Linden town library opens at 10:00 on Saturdays.",
+      "debate_id": "debate-0",
+      "evidence_url": "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/preliminary.txt",
+      "id": "arg-0",
+      "note": "Fictional library fixture",
+      "original": {
+        "quote": "The library opens at 09:00 on Saturdays.",
+        "reason": "The page explicitly lists a Saturday opening time of 09:00, contradicting the claimed 10:00.",
+        "verdict": "FLAWED",
+        "weight": -1
+      },
+      "quote": "The library opens at 10:00 on Saturdays.",
+      "reason": "The new official schedule correction explicitly replaces the preliminary time and establishes that the library opens at 10:00 on Saturdays, directly correcting the prior deficiency.",
+      "side": "FOR",
+      "status": "ASSESSED",
+      "verdict": "SOUND",
+      "weight": 2
+    },
+    {
+      "appeal": {
+        "delta": 0,
+        "evidence_url": "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/unrelated.txt",
+        "expires_at": 1795247199,
+        "grounds": "Review this second source in relation to the posted opening hours.",
+        "quote": "",
+        "reason": "The new source only mentions a free Friday coat check and explicitly says nothing about Saturday or Sunday opening hours. It does not establish the 10:00 Sunday opening or address the earlier deficiency, so the prior verdict stands.",
+        "status": "UPHELD",
+        "verdict": "UNVERIFIED"
+      },
+      "author": "0xa86c5b0005da5014079692597b5285e31a734950",
+      "claim": "The Linden town library opens at 10:00 on Sundays.",
+      "debate_id": "debate-0",
+      "evidence_url": "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/preliminary.txt",
+      "id": "arg-2",
+      "note": "Fictional library fixture",
+      "original": {
+        "quote": "",
+        "reason": "The page gives Saturday opening hours but explicitly does not specify Sunday hours, so it does not establish that the library opens at 10:00 on Sundays.",
+        "verdict": "UNVERIFIED",
+        "weight": 0
+      },
+      "quote": "",
+      "reason": "The page gives Saturday opening hours but explicitly does not specify Sunday hours, so it does not establish that the library opens at 10:00 on Sundays.",
+      "side": "AGAINST",
+      "status": "ASSESSED",
+      "verdict": "UNVERIFIED",
+      "weight": 0
+    },
+    {
+      "appeal": {
+        "delta": 0,
+        "evidence_url": "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/correction.txt",
+        "expires_at": 1795247199,
+        "grounds": "Review this second source in relation to the posted opening hours.",
+        "status": "WITHDRAWN"
+      },
+      "author": "0x7155d8b91e60c317c3182c06f481b068f648d7b2",
+      "claim": "The Linden town library opens at 11:00 on Saturdays.",
+      "debate_id": "debate-0",
+      "evidence_url": "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/preliminary.txt",
+      "id": "arg-1",
+      "note": "Fictional library fixture",
+      "original": {
+        "quote": "The library opens at 09:00 on Saturdays.",
+        "reason": "The page states the library opens at 09:00 on Saturdays, directly contradicting the claim of an 11:00 opening time.",
+        "verdict": "FLAWED",
+        "weight": -1
+      },
+      "quote": "The library opens at 09:00 on Saturdays.",
+      "reason": "The page states the library opens at 09:00 on Saturdays, directly contradicting the claim of an 11:00 opening time.",
+      "side": "FOR",
+      "status": "ASSESSED",
+      "verdict": "FLAWED",
+      "weight": -1
+    }
+  ],
+  "transactions": {
+    "created": {
+      "hash": "0xead76b394c3388946d4ce491f0dfd2373704a454cb9275941ab2d5830784aae6",
+      "sender": "0x292dFc2c7447763D1B2E9f2869266402f0eFc8F6",
+      "functionName": "create_debate",
+      "args": [
+        "Library schedule appeals",
+        "Three independent authors demonstrate a correction, an upheld ruling, and withdrawal."
+      ]
+    },
+    "posted_0": {
+      "hash": "0x8d539cc213d3eb43e54e484bf546d90adbc3e64407e5f26a7af1a6c8f8e9a733",
+      "sender": "0xAba63aa6e4d423D6b909C9C5F0D4c11d4e2dc9B5",
+      "functionName": "post_argument",
+      "args": [
+        "debate-0",
+        "FOR",
+        "The Linden town library opens at 10:00 on Saturdays.",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/preliminary.txt",
+        "Fictional library fixture"
+      ]
+    },
+    "posted_2": {
+      "hash": "0xfd29655608ab51878133def99c3b942821c1a946c549884604caec8bfa3924e5",
+      "sender": "0x7155d8b91e60c317c3182C06F481B068f648D7b2",
+      "functionName": "post_argument",
+      "args": [
+        "debate-0",
+        "FOR",
+        "The Linden town library opens at 11:00 on Saturdays.",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/preliminary.txt",
+        "Fictional library fixture"
+      ]
+    },
+    "posted_1": {
+      "hash": "0x9f601bd36c3030177aa916f03b888227a641455d75351b7b137fe5ebb94e1054",
+      "sender": "0xa86C5B0005da5014079692597b5285e31a734950",
+      "functionName": "post_argument",
+      "args": [
+        "debate-0",
+        "AGAINST",
+        "The Linden town library opens at 10:00 on Sundays.",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/preliminary.txt",
+        "Fictional library fixture"
+      ]
+    },
+    "assessed_2": {
+      "hash": "0x5314dac43c9d2e1fbabfce3735082334866e0cf84aefaf2dcdf4d30f67e759c4",
+      "sender": "0x7155d8b91e60c317c3182C06F481B068f648D7b2",
+      "functionName": "assess_argument",
+      "args": [
+        "arg-1"
+      ]
+    },
+    "assessed_1": {
+      "hash": "0xc706f78700e0104c9baaee8ca0f8c077714cb1e83626f0dccb6567f68c3a85e9",
+      "sender": "0xa86C5B0005da5014079692597b5285e31a734950",
+      "functionName": "assess_argument",
+      "args": [
+        "arg-2"
+      ]
+    },
+    "assessed_0": {
+      "hash": "0x21196955a845175079608a54570f69058d644f385635a4d9713cb0c392fc81e2",
+      "sender": "0xAba63aa6e4d423D6b909C9C5F0D4c11d4e2dc9B5",
+      "functionName": "assess_argument",
+      "args": [
+        "arg-0"
+      ]
+    },
+    "filed_0": {
+      "hash": "0xd8ae5d5b4311a3a205a2bc3a9e2da24de41942aba4e1a88a108421f5ad944b76",
+      "sender": "0xAba63aa6e4d423D6b909C9C5F0D4c11d4e2dc9B5",
+      "functionName": "file_appeal",
+      "args": [
+        "arg-0",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/correction.txt",
+        "The updated schedule explicitly replaces the preliminary opening time."
+      ]
+    },
+    "filed_2": {
+      "hash": "0xfc8971175c41aee969693b0be65cbcd8a5d9c7e38a3d0882d3f9115b703cb90c",
+      "sender": "0x7155d8b91e60c317c3182C06F481B068f648D7b2",
+      "functionName": "file_appeal",
+      "args": [
+        "arg-1",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/correction.txt",
+        "Review this second source in relation to the posted opening hours."
+      ]
+    },
+    "filed_1": {
+      "hash": "0xe211d18cb4bc6d64bf4ea6a96b1e45b83286d95423979ff8c3c8e70cad027b62",
+      "sender": "0xa86C5B0005da5014079692597b5285e31a734950",
+      "functionName": "file_appeal",
+      "args": [
+        "arg-2",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/unrelated.txt",
+        "Review this second source in relation to the posted opening hours."
+      ]
+    },
+    "wrong_author": {
+      "hash": "0xe37dfb8e98a459a7fd9cf370cb77c4a1e57f14bfe21cd8153cd2828dead35a85",
+      "sender": "0x292dFc2c7447763D1B2E9f2869266402f0eFc8F6",
+      "functionName": "file_appeal",
+      "args": [
+        "arg-0",
+        "https://raw.githubusercontent.com/chuanqili77/debatetree-genlayer/cfe655b8f9ac2784e375bfedfa7bb43eca0b33c5/evidence/appeal-scenarios/correction.txt",
+        "I am not the argument author."
+      ],
+      "error": "UNAUTHORIZED"
+    },
+    "blocked_close": {
+      "hash": "0x95a4cf5c3ed21f0f38066892d3e9593029670add328aa3c308f19745741b8d4f",
+      "sender": "0x292dFc2c7447763D1B2E9f2869266402f0eFc8F6",
+      "functionName": "close_debate",
+      "args": [
+        "debate-0"
+      ],
+      "error": "APPEALS_PENDING"
+    },
+    "reversed": {
+      "hash": "0x34ab63a64cf2b30bc7a8a3f32f4924d962fe598fc08fdaaca7569dea83c9f318",
+      "sender": "0xAba63aa6e4d423D6b909C9C5F0D4c11d4e2dc9B5",
+      "functionName": "resolve_appeal",
+      "args": [
+        "arg-0"
+      ]
+    },
+    "upheld": {
+      "hash": "0xe122878c1b235ddf2f6d59c2ddf83e7f2590e24baa5e141b8440cf608d1e2068",
+      "sender": "0xa86C5B0005da5014079692597b5285e31a734950",
+      "functionName": "resolve_appeal",
+      "args": [
+        "arg-2"
+      ]
+    },
+    "withdrawn": {
+      "hash": "0x62c607b1e0438b605f5eea1626d6d48b21876a974ea9b4c909d0e0b323b3aa5d",
+      "sender": "0x7155d8b91e60c317c3182C06F481B068f648D7b2",
+      "functionName": "end_appeal",
+      "args": [
+        "arg-1"
+      ]
+    },
+    "blocked_replay": {
+      "hash": "0xd09a671216700446ef45648439c3456532be8a9f663ed6163371aff61212bc5b",
+      "sender": "0xAba63aa6e4d423D6b909C9C5F0D4c11d4e2dc9B5",
+      "functionName": "resolve_appeal",
+      "args": [
+        "arg-0"
+      ],
+      "error": "NO_PENDING_APPEAL"
+    },
+    "closed": {
+      "hash": "0x4616cdfe481fd583b568b016db5ac661b057218d751d0a8a2249c3ef3053cee1",
+      "sender": "0x292dFc2c7447763D1B2E9f2869266402f0eFc8F6",
+      "functionName": "close_debate",
+      "args": [
+        "debate-0"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "network": "Stable Studionet",
+  "chainId": 61999,
+  "contractAddress": "0x75BD17Ae2a210a63b56745Adeff0EddbfA6f725C",
+  "deployTx": "0x933eba9611714d705d6fc5d7d91b1c5a2a4e7288cdfd6610d43bc7912fa845f0",
+  "deployStatus": "FINALIZED",
+  "deployer": "0x5667C202b333c397Ef5Ab330824bCb4557610809",
+  "sourceSha256": "eefc5d48e48a1b32411f918af36d6ddd436c64387923994644d561d9406d1de4",
+  "protocol": "debatetree-2"
+}

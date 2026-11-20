@@ -249,7 +249,7 @@ class TestClose(unittest.TestCase):
         d = make_debate(c)
         self.assertEqual(json.loads(c.get_debate(d["id"]))["id"], d["id"])
         self.assertEqual(c.get_debate("debate-99"), "")
-        self.assertEqual(c.get_protocol(), "debatetree-1")
+        self.assertEqual(c.get_protocol(), "debatetree-2")
 
 
 if __name__ == "__main__":

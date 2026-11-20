@@ -1,52 +1,37 @@
-# DebateTree
+# DebateTree V2
 
-[Open the chamber](https://chuanqili77.github.io/debatetree-genlayer/) · [Contract](https://explorer-studio.genlayer.com/address/0x1cEC1De81f9466C366d3d7782d2eF0c453B43925)
+[Open the chamber](https://chuanqili77.github.io/debatetree-genlayer/) · [V2 contract](https://explorer-studio.genlayer.com/address/0x75BD17Ae2a210a63b56745Adeff0EddbfA6f725C) · [Changes from the accepted baseline](https://github.com/chuanqili77/debatetree-genlayer/compare/6617bc34830ec8dbabef67d80eb22d2c070777a4...main)
 
-DebateTree is a two-sided debate chamber on GenLayer Stable Studionet (chain ID 61999). A creator opens a debate with a topic and description. Anyone posts arguments FOR or AGAINST, each with an evidence link. GenLayer validators fetch the evidence and judge soundness: SOUND adds 2 to the side total, UNVERIFIED adds 0, and FLAWED subtracts 1 — a flawed argument hurts its own side. The creator closes the debate once at least 2 arguments are assessed; the higher total wins, or the result is a TIE.
+DebateTree is a two-sided debate chamber on GenLayer Stable Studionet (61999). The original chamber records consensus verdicts and awards +2 for SOUND, 0 for UNVERIFIED and −1 for FLAWED. V2 adds an on-chain appeal process with independently reviewed counterevidence, a preserved original ruling, and exactly-once score correction.
 
-## Use the chamber
+## Appeal workflow
 
-1. Open the live site and read the current debate without connecting a wallet, or enter another DebateTree contract address and debate ID.
-2. Connect any injected EVM wallet on Stable Studionet (61999) to write. Reads need no wallet.
-3. Open a new debate with a topic and description. You become its creator and the only one who may close it.
-4. Post arguments FOR or AGAINST with a claim, an HTTPS evidence URL, and an optional note. A debate holds up to 32 arguments; a creator holds up to 8 debates.
-5. Assess a pending argument. Validators fetch the evidence page and agree on SOUND, UNVERIFIED, or FLAWED, with an exact quote for SOUND and FLAWED. Unreachable evidence leaves the argument pending and assessable again later.
-6. Close the debate as its creator once at least 2 arguments are assessed. The winner is the higher total, or TIE.
+1. The author of a FLAWED or UNVERIFIED argument in an open debate may file one appeal with a different HTTPS evidence URL and written grounds.
+2. Anyone may submit a review transaction during the 24-hour appeal window. Each validator independently renders the counterevidence, evaluates the original claim and the reason for the initial ruling, verifies literal quotation provenance, and checks verdict agreement. Failed review leaves the appeal pending.
+3. Canonical counterevidence supporting the original claim and addressing the earlier deficiency can reverse the ruling to SOUND. The contract adds only the difference between the old and new score. An upheld, withdrawn, or expired appeal adds zero.
+4. The author can withdraw before the deadline. Anyone can expire an unresolved appeal at or after the deadline. The debate creator cannot close while any appeal is pending. Resolution preserves the original quote and ruling alongside the review.
 
-## Why the penalty matters
+## Review the public example
 
-Most debate tools only add points for good arguments. DebateTree also subtracts for bad ones: posting a claim your evidence contradicts costs your side 1 point. That makes posting discipline part of the game — a weak argument for your side is worse than silence, and the scoreboard shows it.
+Use the three demo buttons to read the finalized V2 debate without a wallet. They display a corrected schedule, insufficient counterevidence, and an author withdrawal. The library and its published reference pages are intentionally fictional fixtures pinned to an immutable Git commit. The contract calls, validator decisions, transaction hashes, and score readbacks are real.
 
-## Trust boundaries
+[Deployment](evidence/deployment-v2.json) · [Finalized V2 transactions and state](evidence/appeals-v2.json) · [V1 archive](https://chuanqili77.github.io/debatetree-genlayer/?legacy=1)
 
-- A verdict records the evidence judgment at assessment time. A later change to the evidence page does not rewrite history.
-- Unreachable evidence is fail-closed: the argument stays pending and nothing changes.
-- Validators judge whether the evidence page supports the claim. They do not verify real-world truth beyond the page.
-- Debate records are public. Use public claims and avoid personal or confidential data.
-- All writes transfer zero value. The contract holds no funds.
+The contract assesses support from the source under review. It does not establish real-world truth or publisher identity, and public pages can change or fail. For repeatable evidence, prefer versioned sources. An author gets one appeal per argument, including after withdrawal or expiry. The 24-hour window starts on filing; debates may close before an appeal is filed. All writes are zero value.
 
-## Run locally
+## Verify or develop
 
-Node.js 20+ and Python 3.11+:
+Use Node.js 20+ and Python 3.11+.
 
 ```sh
-npm install
+npm ci
 npm test
-python3 -m unittest discover -s contract-tests -v
-python3 -m unittest discover -s tests_direct -v
+python -m unittest discover -s contract-tests
+python -m unittest discover -s tests_direct
+node scripts/verify-v2.mjs
 npm run build
-npm run dev
 ```
 
-The static output is `frontend/dist/`; relative paths support subdirectory hosting. No paid API key or backend is needed. GenLayerJS 1.1.8 and viem 2.57.8 are pinned.
-
-## Files
-
-- `contracts/debatetree.py` — canonical Intelligent Contract.
-- `frontend/src/` — chamber interface (tree view, stage meter, detail panel).
-- `contract-tests/`, `tests_direct/` — mocked-host contract checks (separate processes).
-- `frontend/tests/` — tree logic checks; `frontend/scripts/check-i18n.mjs` — language key check.
-- `scripts/` — Studionet deploy and verification loop.
-- `evidence/` — deployment record, loop record, and readback.
+`contracts/debatetree.py` is the canonical V2 source. `node scripts/deploy.mjs` creates a fresh V2 deployment. `node scripts/check-v2.mjs` runs a new evidence exercise using temporary wallets on a fresh deployment. For V1, see [historical evidence](EVIDENCE.md), [historical mechanism](MECHANISM.md), and [the accepted source](https://github.com/chuanqili77/debatetree-genlayer/blob/6617bc34830ec8dbabef67d80eb22d2c070777a4/contracts/debatetree.py).
 
 MIT licensed.

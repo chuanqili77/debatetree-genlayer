@@ -3,13 +3,17 @@ import { studionet } from "genlayer-js/chains";
 import { STRINGS } from "./i18n.js";
 
 const $ = (id) => document.getElementById(id);
-const DEPLOYED = "0x1cEC1De81f9466C366d3d7782d2eF0c453B43925";
+import deployment from "../../evidence/deployment-v2.json";
+import demo from "../../evidence/appeals-v2.json";
+
+const legacy = new URLSearchParams(location.search).has("legacy");
+const DEPLOYED = legacy ? "0x1cEC1De81f9466C366d3d7782d2eF0c453B43925" : deployment.contractAddress;
 const EXPLORER = "https://explorer-studio.genlayer.com/address/";
 const REPO = "https://github.com/chuanqili77/debatetree-genlayer";
 
 let lang = "en";
 let contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS || DEPLOYED;
-let debateId = "debate-0";
+let debateId = legacy ? "debate-0" : demo.debateId;
 let debate = null;
 let args = [];
 let counts = null;
@@ -66,13 +70,14 @@ function renderWalletState() {
     note.hidden = true;
   }
   renderStage();
+  renderDetail();
 }
 
 async function readRetry(fn, argsList, attempts = 5) {
   let lastErr = null;
   for (let a = 0; a < attempts; a++) {
     try {
-      return await readClient.readContract({ address: contractAddress, functionName: fn, args: argsList });
+      return await readClient.readContract({ address: contractAddress, functionName: fn, args: argsList, transactionHashVariant: "latest-final" });
     } catch (e) {
       lastErr = e;
       if (a < attempts - 1) await sleep(isRateLimit(e) ? 65000 : 5000);
@@ -114,6 +119,9 @@ function renderStage() {
   } else if (!walletAddress || walletAddress.toLowerCase() !== debate.creator.toLowerCase()) {
     closeBtn.disabled = true;
     hint.textContent = t("closeHintCreator");
+  } else if (debate.pending_appeals) {
+    closeBtn.disabled = true;
+    hint.textContent = lang === "zh" ? "有待处理申诉" : "Resolve, withdraw or expire pending appeals first.";
   } else if (debate.assessed_count < 2) {
     closeBtn.disabled = true;
     hint.textContent = `${t("closeHintVotes")} (${debate.assessed_count}/2)`;
@@ -173,6 +181,36 @@ function renderTree() {
   againstList.forEach((a) => againstEl.appendChild(nodeCard(a)));
 }
 
+function showAppeal(a) {
+  const enabled = debate?.protocol === "debatetree-2" && a.status === "ASSESSED";
+  $("appealPanel").hidden = !enabled;
+  if (!enabled) return;
+  const appeal = a.appeal;
+  const author = walletAddress?.toLowerCase() === a.author.toLowerCase();
+  const open = debate.status === "OPEN";
+  const pending = open && appeal?.status === "PENDING";
+  const expired = pending && Date.now() >= appeal.expires_at * 1000;
+  $("appealStatus").dataset.outcome = appeal?.status ?? "NONE";
+  $("appealStatus").textContent = appeal
+    ? appeal.status + (appeal.delta == null ? " · expires " + new Date(appeal.expires_at * 1000).toISOString() : " · score delta " + (appeal.delta > 0 ? "+" : "") + appeal.delta)
+    : (lang === "zh" ? "暂无申诉" : "No appeal filed");
+  $("appealOriginal").textContent = a.original ? "Original verdict · " + a.original.verdict + " (" + a.original.weight + ")" : "";
+  $("appealPriorReason").textContent = a.original ? [a.original.reason, a.original.quote].filter(Boolean).join(" · ") : "";
+  $("appealGrounds").textContent = appeal?.grounds ?? "";
+  $("appealQuote").textContent = appeal?.quote ?? "";
+  $("appealReason").textContent = appeal?.reason ?? "";
+  const demoIndex = demo.arguments.findIndex(row => row.id === a.id);
+  const record = contractAddress.toLowerCase() === deployment.contractAddress.toLowerCase()
+    ? demo.transactions[["reversed", "upheld", "withdrawn"][demoIndex]] : null;
+  $("appealReceipt").hidden = !record;
+  if (record) $("appealReceipt").href = "https://explorer-studio.genlayer.com/tx/" + record.hash;
+  $("appealSource").hidden = !appeal;
+  if (appeal) $("appealSource").href = appeal.evidence_url;
+  $("appealForm").hidden = !open || !author || Boolean(appeal) || a.verdict === "SOUND";
+  $("resolveAppealBtn").hidden = !pending || !walletAddress || expired;
+  $("endAppealBtn").hidden = !pending || !walletAddress || (!author && !expired);
+}
+
 function renderDetail() {
   const panel = $("detailPanel");
   const a = args.find((x) => x.id === selectedId);
@@ -190,6 +228,7 @@ function renderDetail() {
   $("detailNote").textContent = a.note || "—";
   $("detailQuote").textContent = a.quote || "—";
   $("detailReason").textContent = a.reason || "—";
+  showAppeal(a);
   const btn = $("assessBtn");
   const hint = $("assessHint");
   if (debate && debate.status !== "OPEN") {
@@ -307,10 +346,8 @@ function failureCode(tx) {
 }
 
 function executionFailed(tx) {
-  if (typeof tx?.txExecutionResultName === "string") return /FAIL/i.test(tx.txExecutionResultName);
-  const lr = tx?.consensus_data?.leader_receipt?.[0];
-  if (lr && typeof lr.execution_result === "string") return /FAIL/i.test(lr.execution_result);
-  return false;
+  const leader = [tx?.consensus_data?.leader_receipt].flat().find(item => item?.mode === "leader");
+  return ![6, "MAJORITY_AGREE"].includes(tx?.result) || leader?.execution_result !== "SUCCESS";
 }
 
 async function sendWrite(fn, fnArgs, after) {
@@ -338,6 +375,33 @@ async function sendWrite(fn, fnArgs, after) {
 }
 
 function initEvents() {
+  window.ethereum?.on?.("accountsChanged", accounts => {
+    if (!writeClient) return;
+    walletAddress = accounts[0] ?? null;
+    if (!walletAddress) writeClient = null;
+    renderWalletState();
+  });
+  document.querySelectorAll("[data-appeal-demo]").forEach(button => button.addEventListener("click", async () => {
+    contractAddress = deployment.contractAddress;
+    debateId = demo.debateId;
+    selectedId = demo.arguments[Number(button.dataset.appealDemo)].id;
+    $("contractInput").value = contractAddress;
+    $("debateInput").value = debateId;
+    $("explorerLink").href = explorerUrl();
+    $("footerExplorer").href = explorerUrl();
+    await loadDebate();
+    $("detailPanel").scrollIntoView({block:"nearest"});
+  }));
+  $("appealForm").addEventListener("submit", e => {
+    e.preventDefault();
+    if (selectedId) sendWrite("file_appeal", [selectedId, $("appealUrl").value.trim(), $("appealGroundsInput").value.trim()]);
+  });
+  $("resolveAppealBtn").addEventListener("click", () => {
+    if (selectedId) sendWrite("resolve_appeal", [selectedId]);
+  });
+  $("endAppealBtn").addEventListener("click", () => {
+    if (selectedId) sendWrite("end_appeal", [selectedId]);
+  });
   $("langBtn").addEventListener("click", () => {
     lang = lang === "en" ? "zh" : "en";
     applyLang();
