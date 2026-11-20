@@ -255,6 +255,7 @@ async function loadDebate() {
   $("treeProgress").hidden = false;
   try {
     const rawDebate = await readRetry("get_debate", [debateId]);
+    if (gen === loadGen) $("protocolLabel").textContent = parse(rawDebate)?.protocol ?? "—";
     if (gen !== loadGen) return;
     debate = parse(rawDebate);
     if (!debate) {
